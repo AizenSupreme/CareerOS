@@ -1,0 +1,272 @@
+/* ============ 1. Design tokens (restrained palette) ============ */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --border: #e3e8ef;
+  --text: #1f2937;
+  --muted: #64748b;
+  --accent: #2b6cb0;
+  --accent-strong: #1d4e89;
+  --accent-soft: #ebf4ff;
+  --error: #b91c1c;
+  --error-soft: #fef2f2;
+  --ok: #166534;
+  --ok-soft: #f0fdf4;
+  --warn: #92400e;
+  --warn-soft: #fef3c7;
+  --focus: #1d4e89;
+}
+
+/* ============ 2. Base ============ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+code { background: #eef2f7; padding: 1px 5px; border-radius: 4px; font-size: 0.85em; }
+
+/* Keyboard users must always see a clear focus ring */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============ 3. Header ============ */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--accent-strong);
+  letter-spacing: -0.02em;
+}
+
+nav { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.nav-item {
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-item.is-current {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+/* Nav items that are not built yet must not look clickable (UI-07) */
+.nav-item.is-disabled {
+  opacity: 0.55;
+  border: 1px dashed var(--border);
+}
+
+.badge {
+  font-size: 11px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 7px;
+  margin-left: 4px;
+}
+
+/* ============ 4. Page layout: two panes → one column ============ */
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.page-head { margin-bottom: 22px; }
+.page-head h1 { font-size: 26px; letter-spacing: -0.02em; }
+.page-sub { color: var(--muted); font-size: 14px; margin-top: 4px; max-width: 60ch; }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+.col-main, .col-side { display: grid; gap: 24px; }
+
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+/* ============ 5. Panels (the white surfaces) ============ */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.panel h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.hint { color: var(--muted); font-size: 13px; margin: 8px 0 12px; }
+
+/* ============ 6. Form fields ============ */
+.field { margin-bottom: 16px; }
+
+label, legend { font-weight: 600; font-size: 14px; display: block; }
+
+.req { color: var(--error); }
+.optional {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+input[type="text"], select {
+  width: 100%;
+  margin-top: 4px;
+  padding: 9px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+}
+
+input:hover, select:hover { border-color: #94a3b8; }
+
+/* Invalid state: red border + message near the field (UI-05) */
+.field.invalid input, .field.invalid select { border-color: var(--error); background: var(--error-soft); }
+
+.field-error { color: var(--error); font-size: 13px; margin-top: 5px; }
+
+/* Interests: one row per check, readable target size */
+.interests { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin: 16px 0; }
+.check { display: flex; align-items: center; gap: 8px; font-weight: 400; padding: 4px 0; }
+.check input { width: 16px; height: 16px; }
+
+/* ============ 7. Buttons ============ */
+.btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-strong); }
+.btn-secondary { background: var(--accent-soft); color: var(--accent-strong); border-color: #b7d4f5; }
+.btn-secondary:hover { background: #d8e9fb; }
+.btn-ghost { background: transparent; color: var(--accent-strong); border-color: var(--border); }
+.btn-ghost:hover { background: var(--bg); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+/* ============ 8. Status and error messages ============ */
+.status { padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; }
+.status.ok { background: var(--ok-soft); color: var(--ok); border: 1px solid #bbf7d0; }
+.status.error { background: var(--error-soft); color: var(--error); border: 1px solid #fecaca; }
+
+.error-summary {
+  background: var(--error-soft);
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  color: var(--error);
+  font-size: 14px;
+}
+.error-summary-title { font-weight: 700; margin-bottom: 6px; }
+.error-summary a { color: var(--error); }
+
+/* ============ 9. Skills section ============ */
+.skill-add-fields { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
+.skill-add-fields .field { margin-bottom: 0; flex: 1 1 150px; }
+
+.skills { list-style: none; display: grid; gap: 10px; }
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.skill-main { flex: 1 1 140px; display: flex; align-items: center; gap: 8px; }
+.skill-name { font-weight: 600; }
+
+.source-badge {
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.skill-row select { width: auto; margin-top: 0; padding: 6px 8px; font-size: 13px; }
+
+.btn-remove { padding: 6px 10px; font-size: 13px; border-radius: 6px; }
+
+.empty { color: var(--muted); font-size: 14px; border-style: dashed; text-align: center; padding: 18px; }
+
+/* ============ 10. Side panel widgets ============ */
+.meter { height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin: 6px 0 10px; }
+.meter-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width 0.25s ease; }
+#completion-text { font-weight: 600; font-size: 14px; }
+
+.steps { list-style: none; display: grid; gap: 8px; }
+.steps li { font-size: 14px; padding-left: 4px; }
+.steps a { color: var(--accent-strong); text-decoration: underline; }
+.steps .done { color: var(--ok); }
+
+.pill { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 3px 10px; }
+.pill-warn { background: var(--warn-soft); color: var(--warn); }
+.pill-ok { background: var(--ok-soft); color: var(--ok); }
+
+/* ============ 11. Footer ============ */
+.foot {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+  padding: 18px;
+}

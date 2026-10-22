@@ -3,80 +3,157 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CareerOS — Week 1 exercise</title>
-  <style>
-    /* Start browsers from zero */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f4f8;
-      min-height: 100vh;
-      display: flex;                 /* centre the card */
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .card {                          /* the box model, visible */
-      background: #fff;
-      border: 1px solid #dbe2ea;
-      border-radius: 12px;
-      padding: 24px;                 /* space INSIDE */
-      margin: 0;                     /* body's padding already pushes */
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    h1   { font-size: 24px; color: #1a202c; }
-    h2   { font-size: 13px; text-transform: uppercase; color: #718096; margin: 16px 0 8px; }
-    .goal { color: #2b6cb0; font-weight: bold; margin-bottom: 4px; }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag  { background: #ebf8ff; color: #2b6cb0; border-radius: 999px; padding: 4px 12px; font-size: 13px; }
-
-    .skill { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #edf2f7; }
-
-    label { display: block; font-size: 13px; color: #4a5568; margin: 10px 0 4px; }
-    input, select { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 14px; }
-    .btn  { margin-top: 14px; width: 100%; padding: 10px; background: #2b6cb0; color: #fff; border: none; border-radius: 6px; }
-  </style>
+  <title>CareerOS — Profile</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <section class="card">
-    <h1>Priya S.</h1>
-    <p class="goal">Goal: job-ready as a Data Analyst</p>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="brand">CareerOS</span>
+      <nav aria-label="Primary">
+        <a class="nav-item is-current" aria-current="page" href="#top">Profile</a>
+        <span class="nav-item is-disabled" aria-disabled="true">Careers <span class="badge">later</span></span>
+        <span class="nav-item is-disabled" aria-disabled="true">Gap analysis <span class="badge">later</span></span>
+        <span class="nav-item is-disabled" aria-disabled="true">Roadmap <span class="badge">later</span></span>
+        <span class="nav-item is-disabled" aria-disabled="true">Dashboard <span class="badge">later</span></span>
+      </nav>
+    </div>
+  </header>
 
-    <h2>Education</h2>
-    <p>B.Tech — final year</p>
-
-    <h2>Interests</h2>
-    <div class="tags">
-      <span class="tag">Data</span>
-      <span class="tag">Web development</span>
-      <span class="tag">Products</span>
+  <main class="page" id="top">
+    <div class="page-head">
+      <h1>Your profile</h1>
+      <p class="page-sub">
+        Week 1 practice prototype — the real application arrives in a later phase
+        (see <code>docs/BUILD_PLAN.md</code>). Nothing here is sent to a server.
+      </p>
     </div>
 
-    <h2>Skills</h2>
-    <div class="skill"><span>HTML</span><span>Beginner</span></div>
-    <div class="skill"><span>Git</span><span>Beginner</span></div>
-    <div class="skill"><span>Python</span><span>Not assessed</span></div>
-    <!-- "Not assessed" is its own state — this matters in CareerOS later (FR-SG-02) -->
+    <div class="layout">
+      <!-- ============ MAIN COLUMN ============ -->
+      <div class="col-main">
+        <section class="panel" aria-labelledby="details-h">
+          <h2 id="details-h">Profile details</h2>
 
-    <h2>Practise a real form</h2>
-    <form>
-      <label for="name">Name</label>
-      <input id="name" type="text" placeholder="Your name" />
-      <label for="weekly">Weekly learning time</label>
-      <select id="weekly">
-        <option>2 hours</option>
-        <option>5 hours</option>
-        <option>10+ hours</option>
-      </select>
-      <button class="btn" type="submit">Save profile</button>
-      <!-- Does nothing yet — forms need JavaScript (Day 6) -->
-    </form>
-  </section>
+          <div id="form-status" class="status" role="status" aria-live="polite" hidden></div>
+
+          <div id="error-summary" class="error-summary" role="alert" hidden>
+            <p class="error-summary-title">Fix the following before saving:</p>
+            <ul id="error-summary-list"></ul>
+          </div>
+
+          <form id="profile-form" novalidate>
+            <div class="field" id="field-name">
+              <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="e.g. Priya S." />
+              <p class="field-error" id="error-name" hidden></p>
+            </div>
+
+            <div class="field" id="field-education">
+              <label for="education">Education <span class="req" aria-hidden="true">*</span></label>
+              <select id="education" name="education">
+                <option value="">Choose…</option>
+                <option>B.Tech — final year</option>
+                <option>B.Tech — graduated</option>
+                <option>Other</option>
+              </select>
+              <p class="field-error" id="error-education" hidden></p>
+            </div>
+
+            <fieldset class="field interests">
+              <legend>Interests <span class="optional">optional</span></legend>
+              <label class="check"><input type="checkbox" name="interests" value="data" /> Data</label>
+              <label class="check"><input type="checkbox" name="interests" value="web" /> Web development</label>
+              <label class="check"><input type="checkbox" name="interests" value="design" /> Design</label>
+              <label class="check"><input type="checkbox" name="interests" value="marketing" /> Marketing</label>
+            </fieldset>
+
+            <div class="field" id="field-targetCareer">
+              <label for="targetCareer">Target career <span class="req" aria-hidden="true">*</span></label>
+              <select id="targetCareer" name="targetCareer">
+                <option value="">Choose…</option>
+              </select>
+              <p class="hint">Demo list for this exercise — the real career catalogue arrives in a later phase.</p>
+              <p class="field-error" id="error-targetCareer" hidden></p>
+            </div>
+
+            <div class="field" id="field-weeklyTime">
+              <label for="weeklyTime">Weekly learning time <span class="req" aria-hidden="true">*</span></label>
+              <select id="weeklyTime" name="weeklyTime">
+                <option value="">Choose…</option>
+                <option>2 hours</option>
+                <option>5 hours</option>
+                <option>10+ hours</option>
+              </select>
+              <p class="field-error" id="error-weeklyTime" hidden></p>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn btn-primary">Save profile</button>
+              <button type="button" id="clear-btn" class="btn btn-ghost">Clear saved data</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="skills-h">
+          <h2 id="skills-h">Skills</h2>
+          <p class="hint">
+            Optional — beginners can continue with no skills (FR-UP-03).
+            “Not assessed” means we have no evidence yet; it is not the same as a low level (FR-SG-02).
+          </p>
+
+          <form id="skill-form" class="skill-add" novalidate>
+            <div class="skill-add-fields">
+              <div class="field compact">
+                <label for="skill-name">Skill</label>
+                <select id="skill-name">
+                  <option value="">Choose a skill…</option>
+                </select>
+              </div>
+              <div class="field compact">
+                <label for="skill-level">Level</label>
+                <select id="skill-level">
+                  <option value="">Not assessed</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-secondary">Add skill</button>
+            </div>
+            <p class="field-error" id="skill-error" hidden></p>
+          </form>
+
+          <ul id="skills-list" class="skills" aria-live="polite"></ul>
+        </section>
+      </div>
+
+      <!-- ============ SIDE PANEL ============ -->
+      <aside class="col-side">
+        <section class="panel" aria-labelledby="completion-h">
+          <h2 id="completion-h">Profile completion</h2>
+          <div class="meter" id="meter" role="img">
+            <span class="meter-fill" id="meter-fill"></span>
+          </div>
+          <p id="completion-text">0 of 4 required fields complete</p>
+          <p class="hint">Counts only the fields you actually filled in above.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="steps-h">
+          <h2 id="steps-h">Next steps</h2>
+          <ul id="next-steps" class="steps"></ul>
+        </section>
+
+        <section class="panel" aria-labelledby="saved-h">
+          <h2 id="saved-h">Saved state</h2>
+          <p><span id="dirty-pill" class="pill pill-warn" hidden>Unsaved changes</span>
+             <span id="dirty-ok" class="pill pill-ok">All changes saved</span></p>
+          <p class="hint" id="storage-note"></p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="foot">
+    CareerOS — Week 1 practice exercise. Not the production application.
+  </footer>
 </body>
 </html>
