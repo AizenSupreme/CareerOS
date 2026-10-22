@@ -11,6 +11,7 @@ Each document owns one kind of question. Read the one the task names; open the o
 - **Requirements** — `3_Software_Requirements_Specification (SRS).md`. Read when the task names an ID (`FR-`, `UI-`, `API-`, `NFR-`, `SEC-`) or asks what "done" means. The requirement row and its acceptance column are the contract. Sections: §4 functional requirements, §5 data entities, §6 API conventions, §10 error cases, §11 test plan, §13 open decisions.
 - **Decisions** — `2_Product_Requirements_Document (PRD).md`. Read when the task is about what to build and why: module priority (P0/P1/P2), personas, product logic for scoring, gaps, and roadmap ordering (§9), data-quality rules (§10.2), UX rules (§12.1), architecture direction (§13), AI honesty policy (§14).
 - **Scope** — `1_Project_Blueprint.md`. Read for the one-screen version: problem, users, objectives, core features.
+- **Build plan** — `docs/BUILD_PLAN.md`. Read when the task is about *how to build* rather than what to build: current repo state, stack and architecture choices, provisional decisions D1–D7, phase roadmap, daily tasks, timeline, learning plan, Git and AI-agent workflow, and the cut list. Its decisions are **provisional until ratified** in `docs/DECISIONS.md`; the PRD and SRS stay authoritative over it.
 
 These files were exported from Word. Page headers ("CareerOS PRD • Working baseline • Page 3") sit inline in the text, several table rows are split across a page break (`FR-CR-04`, `FR-FT-03`, `FR-FT-04`, `NFR-12`, `DB-05`), and the PRD build order in §16.4 is numbered from 13. Reconstruct a split requirement from the surrounding sentences, and confirm the intended wording with the human before implementing it.
 
@@ -42,7 +43,7 @@ An implementation that needs one of these states its assumption, marks it provis
 
 ## Repo notes
 
-- Layout today: three numbered spec files at the repo root, plus `docs/agents/` (skill configuration). When code lands, keep it modular and simple enough for one developer to debug and explain: `web/` (Next.js), `api/` (Express + PostgreSQL), `services/` only if a separate Python service earns its place (PRD §13.2). Record the final layout here.
+- Layout today: three numbered spec files at the repo root, plus `docs/` (`BUILD_PLAN.md` and `agents/`). When code lands, keep it modular and simple enough for one developer to debug and explain: `web/` (Next.js), `api/` (Express + PostgreSQL), `services/` only if a separate Python service earns its place (PRD §13.2). Record the final layout here.
 - Conventions (naming, migration style, test layout) get written here once the first module lands, so there is one authoritative place instead of scattered habits.
 - Secrets belong in `.env` files that stay uncommitted; the repo carries only `.env.example`.
 
