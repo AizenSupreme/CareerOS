@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CareerOS — Week 1 exercise</title>
+  <style>
+    /* Start browsers from zero */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;                 /* centre the card */
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {                          /* the box model, visible */
+      background: #fff;
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      padding: 24px;                 /* space INSIDE */
+      margin: 0;                     /* body's padding already pushes */
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1   { font-size: 24px; color: #1a202c; }
+    h2   { font-size: 13px; text-transform: uppercase; color: #718096; margin: 16px 0 8px; }
+    .goal { color: #2b6cb0; font-weight: bold; margin-bottom: 4px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag  { background: #ebf8ff; color: #2b6cb0; border-radius: 999px; padding: 4px 12px; font-size: 13px; }
+
+    .skill { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #edf2f7; }
+
+    label { display: block; font-size: 13px; color: #4a5568; margin: 10px 0 4px; }
+    input, select { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 14px; }
+    .btn  { margin-top: 14px; width: 100%; padding: 10px; background: #2b6cb0; color: #fff; border: none; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <section class="card">
+    <h1>Priya S.</h1>
+    <p class="goal">Goal: job-ready as a Data Analyst</p>
+
+    <h2>Education</h2>
+    <p>B.Tech — final year</p>
+
+    <h2>Interests</h2>
+    <div class="tags">
+      <span class="tag">Data</span>
+      <span class="tag">Web development</span>
+      <span class="tag">Products</span>
+    </div>
+
+    <h2>Skills</h2>
+    <div class="skill"><span>HTML</span><span>Beginner</span></div>
+    <div class="skill"><span>Git</span><span>Beginner</span></div>
+    <div class="skill"><span>Python</span><span>Not assessed</span></div>
+    <!-- "Not assessed" is its own state — this matters in CareerOS later (FR-SG-02) -->
+
+    <h2>Practise a real form</h2>
+    <form>
+      <label for="name">Name</label>
+      <input id="name" type="text" placeholder="Your name" />
+      <label for="weekly">Weekly learning time</label>
+      <select id="weekly">
+        <option>2 hours</option>
+        <option>5 hours</option>
+        <option>10+ hours</option>
+      </select>
+      <button class="btn" type="submit">Save profile</button>
+      <!-- Does nothing yet — forms need JavaScript (Day 6) -->
+    </form>
+  </section>
+</body>
+</html>
