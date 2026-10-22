@@ -42,6 +42,20 @@ An implementation that needs one of these states its assumption, marks it provis
 
 ## Repo notes
 
-- Layout today: three numbered spec files at the repo root. When code lands, keep it modular and simple enough for one developer to debug and explain: `web/` (Next.js), `api/` (Express + PostgreSQL), `services/` only if a separate Python service earns its place (PRD §13.2). Record the final layout here.
+- Layout today: three numbered spec files at the repo root, plus `docs/agents/` (skill configuration). When code lands, keep it modular and simple enough for one developer to debug and explain: `web/` (Next.js), `api/` (Express + PostgreSQL), `services/` only if a separate Python service earns its place (PRD §13.2). Record the final layout here.
 - Conventions (naming, migration style, test layout) get written here once the first module lands, so there is one authoritative place instead of scattered habits.
 - Secrets belong in `.env` files that stay uncommitted; the repo carries only `.env.example`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues (`AizenSupreme/CareerOS`), via the `gh` CLI. Read `docs/agents/issue-tracker.md` when a task publishes, fetches, triages, or wayfinds an issue.
+
+### Triage labels
+
+Five canonical triage roles, default label strings. Read `docs/agents/triage-labels.md` when a task applies, reads, or maps a triage label.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` and `docs/adr/` at the repo root. Read `docs/agents/domain.md` before exploring a codebase area, to use project vocabulary and flag ADR conflicts.
